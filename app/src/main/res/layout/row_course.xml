@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/ll_course"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/fl_thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_course_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:src="@drawable/course_sample"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/colorTransparentBlack"/>
+
+        <TextView
+            android:id="@+id/tv_lessons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8 Lessons"
+            android:textStyle="bold"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:background="@drawable/lessons_bg"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp">
+
+        <TextView
+            android:id="@+id/tv_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HINDI"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:background="@drawable/language_bg"/>
+
+        <TextView
+            android:id="@+id/tv_collection_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="World Geography Through Maps"
+             android:layout_marginStart="10dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_course_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(Hindi) World Geography through Maps Islands of the world: UPSC"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="8dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/tv_average_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.9 "
+            android:textColor="@color/colorYellowRating"
+            />
+
+        <TextView
+            android:id="@+id/tv_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/star"
+            android:textColor="@color/colorYellowRating"
+            />
+
+        <TextView
+            android:id="@+id/tv_ratings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:text="(16 ratings)"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/civ_author_avatar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/placeholder"/>
+
+        <TextView
+            android:id="@+id/tv_author_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:text="Sakshi Mittal"
+            android:textColor="@android:color/black"
+            />
+    </LinearLayout>
+</LinearLayout>

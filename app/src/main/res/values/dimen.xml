@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="statusBarSize">24dp</dimen>
+    <dimen name="appBarElevation">4dp</dimen>
+    <dimen name="minTextSize">6sp</dimen>
+    <dimen name="subText">10sp</dimen>
+    <dimen name="normalText">12sp</dimen>
+    <dimen name="largeText">14sp</dimen>
+    <dimen name="hugeText">20sp</dimen>
+</resources>
