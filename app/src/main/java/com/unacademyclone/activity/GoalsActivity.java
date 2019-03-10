@@ -60,13 +60,13 @@ public class GoalsActivity extends AppCompatActivity {
         goalAdapter=new GoalAdapter(this,goalList);
 
         tv_title = findViewById(R.id.tv_title);
-        tv_title.setTypeface(tfUtil.getTypefaceRegular());
+        tv_title.setTypeface(tfUtil.getTypefaceSemiBold());
         rv_goals=findViewById(R.id.rv_goals);
 
         llm=new LinearLayoutManager(this);
         rv_goals.setLayoutManager(llm);
         rv_goals.setAdapter(goalAdapter);
-        rv_goals.setNestedScrollingEnabled(true);
+        rv_goals.setNestedScrollingEnabled(false);
         //rv_posts.addItemDecoration(new SimpleDividerItemDecoration(this));
         fetchContent();
     }

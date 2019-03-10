@@ -1,6 +1,8 @@
 package com.unacademyclone.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -64,6 +66,13 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
         holder.ll_goal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent bIntent = new Intent();
+                bIntent.putExtra("type","updateGoal");
+                bIntent.putExtra("goal_uid",goal.getUid());
+                bIntent.putExtra("goal_title",goal.getName());
+                bIntent.setAction("PlusFragment");
+                context.sendBroadcast(bIntent);
+                ((Activity)context).finish();
             }
         });
 

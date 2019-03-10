@@ -3,6 +3,8 @@ package com.unacademyclone.utility;
 import android.text.format.DateUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +29,19 @@ public class DurationUtility {
 
             CharSequence ago = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS);
             return ago.toString();
+        }
+        catch (Exception e){
+            return "";
+        }
+    }
+
+
+    public static String getDateFromZulu(String str_date){
+//        String string = "2013-03-05T18:05:05Z";
+        try{
+            String defaultTimezone = TimeZone.getDefault().getID();
+            Date date = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).parse(str_date.replaceAll("Z$", "+0000"));
+            return (new SimpleDateFormat("yyyy MMMM dd hh:mm aaa")).format(date);
         }
         catch (Exception e){
             return "";

@@ -78,7 +78,10 @@ public class CollectionItemAdapter extends RecyclerView.Adapter<CollectionItemAd
                 notifyDataSetChanged();
             }
         });
-        holder.tv_rank.setText(collectionItem.getRank()+"");
+        int rank = collectionItem.getRank();
+
+        String index = rank>9? rank+"" : "0"+rank;
+        holder.tv_rank.setText(index);
         holder.tv_title.setText(collectionItem.getTitle());
         holder.tv_duration.setText(DurationUtility.getTimerFromSeconds((int)collectionItem.getDuration()));
 
