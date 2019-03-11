@@ -1,6 +1,38 @@
-<h3>Repo for the Clone of Unacademy app</h3>
+# Unacademy Clone
 
-<h5>Java:</h5>
+## Installation
+
+Install [Android Studio](https://developer.android.com/studio) based on the OS you are using.
+
+
+
+## Execution
+
+After downloading the project in the local machine, Follow the steps below:
+
+```bash
+1. Open project folder in the Android Studio: File --> Open --> (Select the project folder)
+2. For executing the app: Run --> Run 'app'. 
+```
+
+All the files will be compiled and once the build is completed successfully, your app will be installed in the Emulator.
+
+
+
+## Structure
+
+`/java/com/unacademyclone` will contain all the java files.
+
+`/activity` folder contains implementation logic of all the pages in the application. 
+
+`/adapter` folder contains logic for rendering different types of list views. i.e If you have Array of objects with size 10, this Adapter files will help you to convert the data object into the UI which represents the particular row. 
+
+`/fragment` folder contains logic for the fragments which are present inside the each activities. 
+
+`/model` folder contains classes with setter and getter functions for each attributes inside the class. 
+
+
+<h3>Java:</h3>
 
 ```
 /unacademyclone
@@ -40,6 +72,9 @@
 
 <h5>XML:</h5>
 
+`/res/layout/` folder contains XML files which specifies the styles and alignment of UI elements. 
+
+
 ```
 /res
   ├─ /layout
@@ -62,7 +97,22 @@
   │   ├─ row_topic_group_item.xml  
 ```
 
-<h5>Screenshots:</h5>
+
+## Glossary
+
+The list below contains some of the basic terminology in Android development and their equivalent in Web Application development.
+
+```bash
+Android App   <--->   Web App
+
+.xml File     <--->   .html File
+.java File    <--->   .js File
+Activity      <--->   HTML page like index.html, profile.html
+Fragment      <--->   <frame />
+```
+
+
+## Screenshots
 
   <img src="https://i.ibb.co/7SBDfNG/Screenshot-2019-03-10-18-25-40-497-com-unacademyclone.png" width=340px height=640px/>
   <img src="https://i.ibb.co/vPrC9PN/Screenshot-2019-03-10-18-24-53-270-com-unacademyclone.png" width=340px height=640px/>
