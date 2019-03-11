@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -58,6 +59,7 @@ public class PlusFragment extends Fragment {
     List<GoalFeedItem> goalFeedItemList;
     GoalFeedItemAdapter goalFeedItemAdapter;
 
+    NestedScrollView nsv_items;
     LinearLayout ll_goal_type;
     ImageView iv_banner;
     TextView tv_goal_type, tv_sessions_count, tv_languages, tv_educators, tv_star, tv_learn_more, tv_subscribe ;
@@ -67,7 +69,7 @@ public class PlusFragment extends Fragment {
 
     String educators_count="",live_hours ="", languages="";
 
-    final int ITEMS_LIMIT = 30;
+    final int ITEMS_LIMIT = 3;
     int currentPage = 0;
     boolean isScrolling=false, isResponsePending=false;
     int currentItems,totalItems,scrollOutItems;
@@ -90,6 +92,7 @@ public class PlusFragment extends Fragment {
         goalFeedItemList = new ArrayList<>();
         goalFeedItemAdapter = new GoalFeedItemAdapter(context, goalFeedItemList);
 
+        nsv_items=rootView.findViewById(R.id.nsv_items);
         ll_goal_type=rootView.findViewById(R.id.ll_goal_type);
         iv_banner=rootView.findViewById(R.id.iv_banner);
         tv_goal_type=rootView.findViewById(R.id.tv_goal_type);
@@ -123,26 +126,15 @@ public class PlusFragment extends Fragment {
         rv_items.setAdapter(goalFeedItemAdapter);
         rv_items.setNestedScrollingEnabled(true);
 
-        rv_items.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        nsv_items.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(newState== AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
-                    isScrolling=true;
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                currentItems=llm.getChildCount();
-                totalItems=llm.getItemCount();
-                scrollOutItems=llm.findFirstVisibleItemPosition();
-
-                if(isScrolling && (currentItems+scrollOutItems)==totalItems){
-                    if(NetworkUtility.isAvailable(context)){
-                        fetchContent();
-                        isScrolling=false;
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if(v.getChildAt(v.getChildCount() - 1) != null) {
+                    if ((scrollY >= (v.getChildAt(v.getChildCount() - 1).getMeasuredHeight() - v.getMeasuredHeight())) && scrollY > oldScrollY) {
+                        if(NetworkUtility.isAvailable(context)){
+                            Toast.makeText(context, "Firing inside nested scrollview", Toast.LENGTH_SHORT).show();
+                            fetchContent();
+                        }
                     }
                 }
             }
@@ -357,8 +349,8 @@ public class PlusFragment extends Fragment {
 
     public void updateCard(){
         tv_sessions_count.setText(live_hours+" hours of live sessions every day");
-        tv_sessions_count.setText("Structured courses in "+languages);
-        tv_sessions_count.setText(educators_count+" Top educators");
+        tv_languages.setText("Structured courses in "+languages);
+        tv_educators.setText(educators_count+" Top educators");
     }
 
     public void initBroadcastReceiver(){
@@ -378,6 +370,8 @@ public class PlusFragment extends Fragment {
 
                             currentPage=0;
                             fetchStaticCardContent();
+                            goalFeedItemList.clear();
+                            goalFeedItemAdapter.notifyDataSetChanged();
                             fetchContent();
                         }
                     }
