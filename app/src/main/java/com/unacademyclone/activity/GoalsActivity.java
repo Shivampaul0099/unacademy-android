@@ -51,7 +51,6 @@ public class GoalsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goals);
 
-
         sp=getSharedPreferences(Constant.SP_NAME, Context.MODE_PRIVATE);
         editor=sp.edit();
         tfUtil=new TypefaceUtility(this);
@@ -67,7 +66,6 @@ public class GoalsActivity extends AppCompatActivity {
         rv_goals.setLayoutManager(llm);
         rv_goals.setAdapter(goalAdapter);
         rv_goals.setNestedScrollingEnabled(false);
-        //rv_posts.addItemDecoration(new SimpleDividerItemDecoration(this));
         fetchContent();
     }
 

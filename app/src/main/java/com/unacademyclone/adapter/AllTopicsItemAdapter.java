@@ -2,6 +2,7 @@ package com.unacademyclone.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.unacademyclone.R;
+import com.unacademyclone.activity.TopicActivity;
 import com.unacademyclone.model.AllTopicsItem;
 import com.unacademyclone.utility.Constant;
 import com.unacademyclone.utility.TypefaceUtility;
@@ -66,6 +68,16 @@ public class AllTopicsItemAdapter extends RecyclerView.Adapter<AllTopicsItemAdap
 
         holder.tv_name.setText(allTopicsItem.getName());
         holder.tv_courses.setText(allTopicsItem.getCount()+" courses");
+
+        holder.ll_all_topic_item_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, TopicActivity.class);
+                intent.putExtra("title", allTopicsItem.getName());
+                intent.putExtra("topic_group_id", allTopicsItem.getUid());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

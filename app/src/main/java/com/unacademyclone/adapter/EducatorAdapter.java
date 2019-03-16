@@ -2,6 +2,7 @@ package com.unacademyclone.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.unacademyclone.R;
+import com.unacademyclone.activity.EducatorProfileActivity;
 import com.unacademyclone.model.AllTopicsItem;
 import com.unacademyclone.model.Educator;
 import com.unacademyclone.utility.Constant;
@@ -78,6 +80,16 @@ public class EducatorAdapter extends RecyclerView.Adapter<EducatorAdapter.Educat
         holder.tv_live_minutes.setText(((int)Math.round((educator.getLive_minutes())/60000))+"k live hours");
 
         Picasso.with(context).load(educator.getAvatar()).placeholder(R.drawable.placeholder).error(R.drawable.placeholder).into(holder.iv_avatar);
+
+        holder.ll_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EducatorProfileActivity.class);
+                intent.putExtra("user_name", educator.getUsername());
+                intent.putExtra("goal_uid", "");
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

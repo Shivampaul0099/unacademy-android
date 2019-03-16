@@ -2,6 +2,7 @@ package com.unacademyclone.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.unacademyclone.R;
+import com.unacademyclone.activity.EducatorProfileActivity;
+import com.unacademyclone.activity.PlusCourseActivity;
 import com.unacademyclone.model.Educator;
 import com.unacademyclone.model.TopicGroupItem;
 import com.unacademyclone.utility.Constant;
@@ -35,6 +38,7 @@ public class TopicGroupItemAdapter extends RecyclerView.Adapter<TopicGroupItemAd
     TypefaceUtility tfUtil;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
+    boolean isHorizontalScroll = true;
 
     public class TopicGroupItemViewHolder extends RecyclerView.ViewHolder {
         LinearLayout ll_container;
@@ -65,16 +69,24 @@ public class TopicGroupItemAdapter extends RecyclerView.Adapter<TopicGroupItemAd
             int width = displayMetrics.widthPixels;
             int height = displayMetrics.heightPixels;
 
-            // Set the ViewHolder width to be a third of the screen size, and height to wrap content
-            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/1.25), RecyclerView.LayoutParams.MATCH_PARENT);
-            params.setMargins(30, 5, 20, 5);
-            ll_container.setLayoutParams(params);
+            if(isHorizontalScroll){
+                // Set the ViewHolder width to be a third of the screen size, and height to wrap content
+                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/1.25), RecyclerView.LayoutParams.MATCH_PARENT);
+                params.setMargins(30, 5, 20, 5);
+                ll_container.setLayoutParams(params);
+            }
+            else{
+                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
+                params.setMargins(30, 30, 30, 80);
+                ll_container.setLayoutParams(params);
+            }
         }
     }
 
-    public TopicGroupItemAdapter(Context context, List<TopicGroupItem> topicGroupItemList) {
+    public TopicGroupItemAdapter(Context context, List<TopicGroupItem> topicGroupItemList, boolean isHorizontalScroll) {
         this.context = context;
         this.topicGroupItemList = topicGroupItemList;
+        this.isHorizontalScroll = isHorizontalScroll;
         tfUtil = new TypefaceUtility(context);
         sp = context.getSharedPreferences(Constant.SP_NAME, Context.MODE_PRIVATE);
         editor = sp.edit();
@@ -94,8 +106,26 @@ public class TopicGroupItemAdapter extends RecyclerView.Adapter<TopicGroupItemAd
         holder.tv_topic_group_name.setText(topicGroupItem.getTopic_group_name().toUpperCase());
         holder.tv_name.setText(topicGroupItem.getName());
         holder.tv_starts_on.setText("Starts on "+DurationUtility.getDateFromZulu(topicGroupItem.getStarts_at()));
-        holder.tv_lessons.setText(topicGroupItem.getItem_count()+"lessons");
+        holder.tv_lessons.setText(topicGroupItem.getItem_count()+" lessons");
         holder.tv_author_name.setText(topicGroupItem.getAuthor_name());
+        holder.tv_author_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EducatorProfileActivity.class);
+                intent.putExtra("user_name", topicGroupItem.getAuthor_user_name());
+                intent.putExtra("goal_uid", topicGroupItem.getGoal_uid());
+                context.startActivity(intent);
+            }
+        });
+
+        holder.ll_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, PlusCourseActivity.class);
+                intent.putExtra("programme_id", topicGroupItem.getUid());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

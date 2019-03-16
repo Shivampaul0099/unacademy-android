@@ -1,6 +1,7 @@
 package com.unacademyclone.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.unacademyclone.R;
 import com.unacademyclone.activity.GoalsActivity;
+import com.unacademyclone.activity.SearchAutocompleteActivity;
 import com.unacademyclone.adapter.GoalAdapter;
 import com.unacademyclone.adapter.StoryAdapter;
 import com.unacademyclone.connection.HttpsRequest;
@@ -57,7 +60,10 @@ public class HomeFragment extends Fragment {
     LinearLayoutManager llm;
     List<Story> storyList;
     StoryAdapter storyAdapter;
+
+
     FrameLayout fl_progress;
+    LinearLayout ll_search;
     TextView tv_search_hint;
     RecyclerView rv_stories;
 
@@ -79,6 +85,7 @@ public class HomeFragment extends Fragment {
 
         storyAdapter=new StoryAdapter(context,storyList);
 
+        ll_search=rootView.findViewById(R.id.ll_search);
         fl_progress=rootView.findViewById(R.id.fl_progress);
         tv_search_hint=rootView.findViewById(R.id.tv_search_hint);
         rv_stories=rootView.findViewById(R.id.rv_stories);
@@ -89,6 +96,13 @@ public class HomeFragment extends Fragment {
         rv_stories.setLayoutManager(llm);
         rv_stories.setAdapter(storyAdapter);
         rv_stories.setNestedScrollingEnabled(false);
+
+        ll_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, SearchAutocompleteActivity.class));
+            }
+        });
 
         rv_stories.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

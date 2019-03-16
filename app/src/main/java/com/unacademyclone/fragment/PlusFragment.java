@@ -28,6 +28,9 @@ import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 import com.unacademyclone.R;
 import com.unacademyclone.activity.GoalsActivity;
+import com.unacademyclone.activity.LearnMoreActivity;
+import com.unacademyclone.activity.LoginRegisterActivity;
+import com.unacademyclone.activity.PlusCourseActivity;
 import com.unacademyclone.adapter.GoalAdapter;
 import com.unacademyclone.adapter.GoalFeedItemAdapter;
 import com.unacademyclone.connection.HttpsRequest;
@@ -71,8 +74,7 @@ public class PlusFragment extends Fragment {
 
     final int ITEMS_LIMIT = 3;
     int currentPage = 0;
-    boolean isScrolling=false, isResponsePending=false;
-    int currentItems,totalItems,scrollOutItems;
+    boolean isResponsePending=false;
 
     BroadcastReceiver brPlusFragment;
 
@@ -120,6 +122,20 @@ public class PlusFragment extends Fragment {
             }
         });
 
+        tv_learn_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, LearnMoreActivity.class));
+            }
+        });
+
+        tv_subscribe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, LoginRegisterActivity.class));
+            }
+        });
+
 
         llm=new LinearLayoutManager(context);
         rv_items.setLayoutManager(llm);
@@ -132,7 +148,6 @@ public class PlusFragment extends Fragment {
                 if(v.getChildAt(v.getChildCount() - 1) != null) {
                     if ((scrollY >= (v.getChildAt(v.getChildCount() - 1).getMeasuredHeight() - v.getMeasuredHeight())) && scrollY > oldScrollY) {
                         if(NetworkUtility.isAvailable(context)){
-                            Toast.makeText(context, "Firing inside nested scrollview", Toast.LENGTH_SHORT).show();
                             fetchContent();
                         }
                     }
@@ -198,6 +213,8 @@ public class PlusFragment extends Fragment {
                                        joDataItem.getString("uid"),
                                        joDataItem.getString("name"),
                                        joAuthor.getString("first_name")+" "+joAuthor.getString("last_name"),
+                                       joAuthor.getString("username"),
+                                       goal_uid,
                                        joDataItem.getString("cover_photo"),
                                        joDataItem.getString("starts_at"),
                                        topic_group_name,
@@ -264,6 +281,8 @@ public class PlusFragment extends Fragment {
                                        joDataItem.getString("uid"),
                                        joDataItem.getString("name"),
                                        joAuthor.getString("first_name")+" "+joAuthor.getString("last_name"),
+                                       joAuthor.getString("username"),
+                                       goal_uid,
                                        joDataItem.getString("cover_photo"),
                                        joDataItem.getString("starts_at"),
                                        topic_group_name,
@@ -291,7 +310,6 @@ public class PlusFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 isResponsePending = false;
                 Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
-                Log.d("GOPALAKRISHNAN", error.toString());
             }
         };
 

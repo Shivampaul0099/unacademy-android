@@ -41,7 +41,36 @@ public class DurationUtility {
         try{
             String defaultTimezone = TimeZone.getDefault().getID();
             Date date = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")).parse(str_date.replaceAll("Z$", "+0000"));
-            return (new SimpleDateFormat("yyyy MMMM dd hh:mm aaa")).format(date);
+            return (new SimpleDateFormat("MMM dd hh:mm aaa")).format(date);
+        }
+        catch (Exception e){
+            return "";
+        }
+    }
+
+    public static String getMonthDayFromAZulu(String str_date, boolean secondsInDouble){
+//        String string = "2013-03-05T18:05:05Z";
+//        String string = "2019-01-23T07:17:36.360Z";
+        String pattern = secondsInDouble? "yyyy-MM-dd'T'HH:mm:ss.sssZ" : "yyyy-MM-dd'T'HH:mm:ssZ";
+
+        try{
+            String defaultTimezone = TimeZone.getDefault().getID();
+            Date date = (new SimpleDateFormat(pattern)).parse(str_date.replaceAll("Z$", "+0000"));
+            return (new SimpleDateFormat("MMM dd")).format(date);
+        }
+        catch (Exception e){
+            return "";
+        }
+    }
+
+    public static String getTimeFromZulu(String str_date, boolean secondsInDouble){
+//        String string = "2013-03-05T18:05:05Z";
+//        String string = "2019-01-23T07:17:36.360Z";
+        String pattern = secondsInDouble? "yyyy-MM-dd'T'HH:mm:ss.sssZ" : "yyyy-MM-dd'T'HH:mm:ssZ";
+        try{
+            String defaultTimezone = TimeZone.getDefault().getID();
+            Date date = (new SimpleDateFormat(pattern)).parse(str_date.replaceAll("Z$", "+0000"));
+            return (new SimpleDateFormat(" hh:mm aaa")).format(date);
         }
         catch (Exception e){
             return "";

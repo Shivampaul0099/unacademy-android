@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/colorPrimaryDark"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <LinearLayout
             android:layout_width="0dp"
@@ -70,7 +71,8 @@
         android:gravity="center_vertical"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?selectableItemBackground">
+        android:foreground="?selectableItemBackground"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -117,7 +119,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:alpha="0.4"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -126,7 +129,8 @@
         android:gravity="center_vertical"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?selectableItemBackground">
+        android:foreground="?selectableItemBackground"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -173,7 +177,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:alpha="0.4"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -182,7 +187,8 @@
         android:gravity="center_vertical"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?selectableItemBackground">
+        android:foreground="?selectableItemBackground"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -229,7 +235,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:alpha="0.4"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -238,7 +245,8 @@
         android:gravity="center_vertical"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?selectableItemBackground">
+        android:foreground="?selectableItemBackground"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -285,7 +293,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:alpha="0.4"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -294,7 +303,8 @@
         android:gravity="center_vertical"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?selectableItemBackground">
+        android:foreground="?selectableItemBackground"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -341,8 +351,64 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:alpha="0.4"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:src="@drawable/library"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="@string/my_library_title"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:id="@+id/tv_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/my_library_sub_title" />
 
 
+        <LinearLayout
+            android:id="@+id/ll_login_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:background="@drawable/save_post_bg"
+            android:layout_marginTop="15dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp">
+
+            <TextView
+                android:id="@+id/tv_login_signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:text="Login / Signup"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

@@ -80,7 +80,7 @@ public class GoalFeedItemAdapter extends RecyclerView.Adapter<GoalFeedItemAdapte
 
         }
         else if(goalFeedItem.getType().equals("educators")){
-            holder.tv_see_all.setVisibility(View.VISIBLE);
+            holder.tv_see_all.setVisibility(View.GONE);
             LinearLayoutManager llm = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
 
             holder.rv_items.setLayoutManager(llm);
@@ -90,11 +90,11 @@ public class GoalFeedItemAdapter extends RecyclerView.Adapter<GoalFeedItemAdapte
 
         }
         else if(goalFeedItem.getType().equals("topic_group")){
-            holder.tv_see_all.setVisibility(View.VISIBLE);
+            holder.tv_see_all.setVisibility(View.GONE);
             LinearLayoutManager llm = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             holder.rv_items.setLayoutManager(llm);
 
-            TopicGroupItemAdapter topicGroupItemAdapter = new TopicGroupItemAdapter(context, goalFeedItem.getTopicGroupItemList());
+            TopicGroupItemAdapter topicGroupItemAdapter = new TopicGroupItemAdapter(context, goalFeedItem.getTopicGroupItemList(), true);
             holder.rv_items.setAdapter(topicGroupItemAdapter);
         }
 

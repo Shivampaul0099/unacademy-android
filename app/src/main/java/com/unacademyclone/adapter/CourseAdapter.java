@@ -31,6 +31,7 @@ import java.util.List;
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
     Context context;
     List<Course> courseList;
+    boolean isSearchResult=false;
     TypefaceUtility tfUtil;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -42,7 +43,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         TextView tv_lessons, tv_language, tv_collection_name, tv_course_title;
         TextView tv_average_star, tv_star, tv_ratings, tv_author_name;
         CircularImageView civ_author_avatar;
-
 
         public CourseViewHolder(View itemView) {
             super(itemView);
@@ -75,16 +75,24 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             int width = displayMetrics.widthPixels;
             int height = displayMetrics.heightPixels;
 
-            // Set the ViewHolder width to be a third of the screen size, and height to wrap content
-            RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/1.1), RecyclerView.LayoutParams.WRAP_CONTENT);
-            params.setMargins(20, 5, 0, 20);
-            ll_course.setLayoutParams(params);
+            if(isSearchResult){
+                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
+                params.setMargins(30, 50, 20, 30);
+                ll_course.setLayoutParams(params);
+            }
+            else{
+                RecyclerView.LayoutParams params = new RecyclerView.LayoutParams((int)(width/1.1), RecyclerView.LayoutParams.WRAP_CONTENT);
+                params.setMargins(20, 5, 0, 20);
+                ll_course.setLayoutParams(params);
+            }
+
         }
     }
 
-    public CourseAdapter(Context context, List<Course> courseList) {
+    public CourseAdapter(Context context, List<Course> courseList, boolean isSearchResult) {
         this.context = context;
         this.courseList = courseList;
+        this.isSearchResult = isSearchResult;
         tfUtil = new TypefaceUtility(context);
         sp = context.getSharedPreferences(Constant.SP_NAME, Context.MODE_PRIVATE);
         editor = sp.edit();

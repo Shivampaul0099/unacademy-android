@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/fl_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="70dp"
+    android:layout_height="70dp"
+    android:layout_marginStart="3dp"
+    android:layout_marginEnd="3dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/civ_hat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/placeholder"
+        app:civ_border="true"
+        app:civ_border_width="0dp"
+        app:civ_shadow="false"
+        android:scaleType="centerCrop"
+        android:layout_margin="3dp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_count"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="bottom|right"
+        android:gravity="center"
+        android:visibility="gone"
+        android:background="@drawable/hat_count_bg">
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            android:text="46"/>
+    </LinearLayout>
+</FrameLayout>

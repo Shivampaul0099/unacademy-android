@@ -10,5 +10,21 @@
 
     <string name="star">\u2605</string>
     <string name="bullet">\u2022</string>
+    <string name="march_18">Mar\n18</string>
 
+
+    <string name="my_library_title">Sign up or Login to save and download</string>
+    <string name="my_library_sub_title">To save courses you have watched and to keep credits earned, login or create a new account.</string>
+    <string name="learn_more">Learn more</string>
+    <string name="history">History</string>
+    <string name="sample_question">What is Plus subscription?</string>
+    <string name="sample_answer">Plus Subscription gives you access to all live courses and quizzes launched every month within the goal you have subscribed for. Plus subscription is available for one month, six year and a year.</string>
+
+    <string name="sample_user_name">Unacademy UPSC CSE</string>
+    <string name="profile_since">Educator since June 2018</string>
+    <string name="bio">Unacademy\'s official UPSC CSE account. Keep following for great updates about the best courses and educators.</string>
+
+    <string name="full_name">Full name</string>
+    <string name="email">Email Address</string>
+    <string name="password">Password</string>
 </resources>

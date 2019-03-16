@@ -1,6 +1,7 @@
 package com.unacademyclone.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,17 +47,17 @@ public class PostActivity extends AppCompatActivity {
     List<CollectionItem> collectionItemList;
     CollectionItemAdapter collectionItemAdapter;
 
-    String post_id="SOTIGV4U";
+    String post_id="";
     String video_url="", language="", collection_name="",title="";
-    String author_name="", author_avatar="", author_id="", followers_count="", collection_id="";
+    String author_name="", author_avatar="", user_name="", followers_count="", collection_id="";
     int recommend_count=0, comments_count=0;
-
 
     WebView wv_player;
     TextView tv_likes, tv_comments,tv_share, tv_language, tv_collection_name;
     TextView tv_title, tv_user_name, tv_followers, tv_follow;
     TextView tv_average_star, tv_star, tv_ratings, tv_write_review;
     CircularImageView civ_user;
+    LinearLayout ll_actions;
     View v_seperator;
     RecyclerView rv_collection_items;
 
@@ -66,7 +68,7 @@ public class PostActivity extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         if(b!=null){
-            post_id = b.getString("post_id", "SOTIGV4U");
+            post_id = b.getString("post_id", "");
             collection_id = b.getString("collection_id", "");
 
         }
@@ -93,6 +95,7 @@ public class PostActivity extends AppCompatActivity {
         tv_ratings = findViewById(R.id.tv_ratings);
         tv_write_review = findViewById(R.id.tv_write_review);
         civ_user = findViewById(R.id.civ_user);
+        ll_actions = findViewById(R.id.ll_actions);
         v_seperator = findViewById(R.id.v_seperator);
         rv_collection_items = findViewById(R.id.rv_collection_items);
 
@@ -115,10 +118,38 @@ public class PostActivity extends AppCompatActivity {
         rv_collection_items.setAdapter(collectionItemAdapter);
 //        rv_collection_items.setNestedScrollingEnabled(false);
 
+        tv_follow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PostActivity.this, LoginRegisterActivity.class));
+            }
+        });
+
         wv_player.getSettings().setJavaScriptEnabled(true);
         if(!collection_id.equals("")){
             fetchPostIdByCollectionId();
         }
+
+        ll_actions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PostActivity.this, LoginRegisterActivity.class));
+            }
+        });
+
+        View.OnClickListener profileOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostActivity.this, UserProfileActivity.class);
+                intent.putExtra("user_name", user_name);
+                startActivity(intent);
+            }
+        };
+
+        civ_user.setOnClickListener(profileOnClickListener);
+        tv_user_name.setOnClickListener(profileOnClickListener);
+        tv_followers.setOnClickListener(profileOnClickListener);
+
         fetchPostData();
         updateUI();
     }
@@ -143,7 +174,7 @@ public class PostActivity extends AppCompatActivity {
 
                     author_name=joAuthor.getString("first_name")+" "+joAuthor.getString("last_name");
                     author_avatar=joAuthor.getString("avatar");
-                    author_id=joAuthor.getString("uid");
+                    user_name=joAuthor.getString("username");
                     followers_count=joAuthor.getString("followers_count");
                     collection_id=joACollection.getString("uid");
 

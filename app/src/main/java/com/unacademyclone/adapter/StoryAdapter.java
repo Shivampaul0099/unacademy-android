@@ -18,7 +18,9 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.unacademyclone.R;
+import com.unacademyclone.activity.LoginRegisterActivity;
 import com.unacademyclone.activity.PostActivity;
+import com.unacademyclone.activity.UserProfileActivity;
 import com.unacademyclone.model.Course;
 import com.unacademyclone.model.Goal;
 import com.unacademyclone.model.Story;
@@ -40,12 +42,12 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
     SharedPreferences.Editor editor;
 
     public class StoryViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout ll_story, ll_user, ll_single_course, ll_multiple_courses;
+        LinearLayout ll_story, ll_user, ll_single_course, ll_multiple_courses, ll_actions;
         CircularImageView civ_user, civ_course_author_avatar;
-        TextView tv_user_name, tv_published, tv_message, tv_language, tv_collection_name, tv_course_title;
+        TextView tv_user_name, tv_verb, tv_published, tv_message, tv_language, tv_collection_name, tv_course_title;
         TextView tv_duration, tv_bullet, tv_views, tv_average_star, tv_star, tv_ratings, tv_course_author_name;
         TextView tv_combo_name, tv_likes, tv_comments, tv_share, tv_save, tv_multi_save;
-        ImageView iv_thumbnail;
+        ImageView iv_verified, iv_thumbnail;
         RecyclerView rv_courses;
 
         public StoryViewHolder(View itemView) {
@@ -54,11 +56,14 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
             ll_user = itemView.findViewById(R.id.ll_user);
             ll_single_course = itemView.findViewById(R.id.ll_single_course);
             ll_multiple_courses = itemView.findViewById(R.id.ll_multiple_courses);
+            ll_actions = itemView.findViewById(R.id.ll_actions);
 
             civ_user = itemView.findViewById(R.id.civ_user);
             civ_course_author_avatar = itemView.findViewById(R.id.civ_course_author_avatar);
 
             tv_user_name = itemView.findViewById(R.id.tv_user_name);
+            iv_verified = itemView.findViewById(R.id.iv_verified);
+            tv_verb = itemView.findViewById(R.id.tv_verb);
             tv_published = itemView.findViewById(R.id.tv_published);
             tv_message = itemView.findViewById(R.id.tv_message);
             tv_language = itemView.findViewById(R.id.tv_language);
@@ -84,6 +89,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
 
 
             tv_user_name.setTypeface(tfUtil.getTypefaceSemiBold());
+            tv_verb.setTypeface(tfUtil.getTypefaceRegular());
             tv_published.setTypeface(tfUtil.getTypefaceRegular());
             tv_message.setTypeface(tfUtil.getTypefaceRegular());
             tv_language.setTypeface(tfUtil.getTypefaceRegular());
@@ -129,6 +135,21 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
 
         Picasso.with(context).load(storyAuthor.getAvatar()).placeholder(R.drawable.placeholder).error(R.drawable.placeholder).into(holder.civ_user);
         holder.tv_user_name.setText(storyAuthor.getFirst_name()+" "+storyAuthor.getLast_name());
+
+        if(!story.getVerb_text().equals("")){
+            holder.tv_verb.setVisibility(View.VISIBLE);
+            holder.tv_verb.setText(story.getVerb_text());
+        }
+        else{
+            holder.tv_verb.setVisibility(View.VISIBLE);
+        }
+        if(storyAuthor.isIs_verified_educator()){
+            holder.iv_verified.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.iv_verified.setVisibility(View.GONE);
+        }
+
         holder.tv_published.setText(DurationUtility.getTimeAgo(story.getCreated_at()));
         holder.tv_message.setText(story.getMessage());
         Picasso.with(context).load(story.getVideo_thumbnail()).placeholder(R.drawable.placeholder).error(R.drawable.placeholder).into(holder.iv_thumbnail);
@@ -139,7 +160,13 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
 
         holder.tv_collection_name.setText(story.getCollection_name());
         holder.tv_course_title.setText(story.getTitle());
-        holder.tv_message.setText(story.getMessage());
+        if(!story.getMessage().equals("")){
+            holder.tv_message.setVisibility(View.VISIBLE);
+            holder.tv_message.setText(story.getMessage());
+        }
+        else{
+            holder.tv_message.setVisibility(View.GONE);
+        }
 
         if(story.getObject_type() == 4){
             holder.ll_single_course.setVisibility(View.VISIBLE);
@@ -176,7 +203,7 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
             holder.ll_multiple_courses.setVisibility(View.VISIBLE);
             holder.tv_combo_name.setText(story.getTitle());
 
-            CourseAdapter courseAdapter=new CourseAdapter(context,story.getCourseList());
+            CourseAdapter courseAdapter=new CourseAdapter(context,story.getCourseList(), false);
 
             LinearLayoutManager llm = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             holder.rv_courses.setLayoutManager(llm);
@@ -184,8 +211,24 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.StoryViewHol
             holder.rv_courses.setNestedScrollingEnabled(false);
         }
 
+        holder.ll_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, UserProfileActivity.class);
+                intent.putExtra("user_name", story.getStoryAuthor().getUsername());
+                context.startActivity(intent);
+            }
+        });
+
         holder.tv_likes.setText(story.getReactions_count()+" likes");
         holder.tv_comments.setText(story.getComments_count()+" comments");
+
+        holder.ll_actions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, LoginRegisterActivity.class));
+            }
+        });
     }
 
     @Override

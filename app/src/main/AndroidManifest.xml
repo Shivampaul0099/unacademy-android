@@ -21,11 +21,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.GoalsActivity" />
-        <activity android:name=".activity.PostActivity" >
-
-        </activity>
+        <activity android:name=".activity.PostActivity" />
         <activity android:name=".activity.SearchAutocompleteActivity" />
-        <activity android:name=".activity.UserProfileActivity"></activity>
+        <activity android:name=".activity.UserProfileActivity" />
+        <activity android:name=".activity.PlusCourseActivity" />
+        <activity android:name=".activity.LearnMoreActivity" />
+        <activity android:name=".activity.EducatorProfileActivity" />
+        <activity android:name=".activity.TopicActivity" />
+        <activity android:name=".activity.SearchResultsActivity" />
+        <activity android:name=".activity.LoginRegisterActivity"></activity>
     </application>
 
 </manifest>
